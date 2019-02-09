@@ -3,19 +3,23 @@ package com.startworksgroup.socialcourses.domain;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
+@Table(name="curso")
 public class Curso {
 
-	@JsonInclude(Include.NON_NULL)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -24,12 +28,15 @@ public class Curso {
 	private String nome;
 	
 	@JsonInclude(Include.NON_NULL)
-	@Transient // Apenas para evitar erro no banco de dados!
+	@ManyToOne
 	private Instituicao instituicao;
 
 	@JsonInclude(Include.NON_NULL)
-	@Transient // Apenas para evitar erro no banco de dados!
+	@OneToMany(mappedBy = "curso")
 	private List<Comentario> comentarios;
+
+	@Enumerated(EnumType.STRING)
+	private TipoCurso nivel;
 
 	private int curtidas;
 
@@ -73,6 +80,14 @@ public class Curso {
 		this.comentarios = comentarios;
 	}
 
+	public TipoCurso getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(TipoCurso nivel) {
+		this.nivel = nivel;
+	}
+	
 	public int getCurtidas() {
 		return curtidas;
 	}
