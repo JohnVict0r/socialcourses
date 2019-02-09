@@ -2,18 +2,41 @@ package com.startworksgroup.socialcourses.domain;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@Entity
 public class Curso {
 
+	@JsonInclude(Include.NON_NULL)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotEmpty(message = "O campo nome não pode ser vazio!")
 	private String nome;
-
+	
+	@JsonInclude(Include.NON_NULL)
+	@Transient // Apenas para evitar erro no banco de dados!
 	private Instituicao instituicao;
 
+	@JsonInclude(Include.NON_NULL)
+	@Transient // Apenas para evitar erro no banco de dados!
 	private List<Comentario> comentarios;
 
 	private int curtidas;
 
+	// for deserialisation
+	public Curso() {} 
+	
+	
 	public Curso(String nome) {
 		this.nome = nome;
 	}
