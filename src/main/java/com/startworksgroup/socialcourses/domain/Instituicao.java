@@ -23,6 +23,8 @@ public class Instituicao {
 	@NotEmpty(message = "O campo nome não pode ser vazio!")
 	private String nome;
 	
+	private String sigla;
+	
 	private String uf;
 	
 	private String cidade;
@@ -45,6 +47,14 @@ public class Instituicao {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
 	}
 
 	public String getUf() {
