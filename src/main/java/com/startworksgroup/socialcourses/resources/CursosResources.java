@@ -46,7 +46,10 @@ public class CursosResources {
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<Void> atualizar(@RequestBody Curso curso, @PathVariable("id") Long id) {
+	public ResponseEntity<Void> atualizar(
+			@RequestBody Curso curso, 
+			@PathVariable("id") Long id
+		) {
 		curso.setId(id);
 		cursosRepository.save(curso);	
 		
